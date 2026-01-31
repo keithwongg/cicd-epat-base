@@ -15,11 +15,6 @@ public class SecurityHeadersFilter implements Filter {
         
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         
-        // Add cache control headers to prevent caching of sensitive content
-        httpResponse.setHeader("Cache-Control", "no-cache, no-store, max-age=0, must-revalidate");
-        httpResponse.setHeader("Pragma", "no-cache");
-        httpResponse.setHeader("Expires", "0");
-        
         // Hide server information to prevent proxy disclosure
         httpResponse.setHeader("Server", "");
         

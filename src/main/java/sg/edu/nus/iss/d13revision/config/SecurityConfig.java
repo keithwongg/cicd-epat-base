@@ -18,6 +18,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authorize -> authorize
+                // Allow public access to actuator endpoints and all other endpoints
+                // Note: This is intentional for this public-facing application
                 .requestMatchers("/actuator/health", "/actuator/prometheus").permitAll()
                 .anyRequest().permitAll()
             )
@@ -50,7 +52,9 @@ public class SecurityConfig {
                 // Add cache control headers
                 .cacheControl(cache -> {})
             )
-            .csrf(csrf -> csrf.disable()); // Disable CSRF for simplicity; enable in production if needed
+            // CSRF disabled as this is a stateless application primarily serving APIs
+            // For production applications with form submissions, consider enabling CSRF
+            .csrf(csrf -> csrf.disable());
 
         return http.build();
     }
